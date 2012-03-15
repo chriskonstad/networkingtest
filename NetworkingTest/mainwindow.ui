@@ -29,7 +29,7 @@
    </size>
   </property>
   <property name="windowTitle">
-   <string>Qt UDP Tool (Networking Test)v2</string>
+   <string>Qt UDP Tool (Networking Test)</string>
   </property>
   <widget class="QWidget" name="centralWidget">
    <widget class="QGroupBox" name="groupBox">

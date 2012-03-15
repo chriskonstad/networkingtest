@@ -7,7 +7,7 @@
 QT       += core gui\
         network
 
-TARGET = NetworkingTest2
+TARGET = NetworkingTest
 TEMPLATE = app
 
 
@@ -17,3 +17,7 @@ SOURCES += main.cpp\
 HEADERS  += mainwindow.h
 
 FORMS    += mainwindow.ui
+
+macx {
+ICON = networkingtest.icns
+}
