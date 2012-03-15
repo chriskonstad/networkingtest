@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>450</width>
-    <height>450</height>
+    <width>400</width>
+    <height>550</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -18,14 +18,14 @@
   </property>
   <property name="minimumSize">
    <size>
-    <width>399</width>
-    <height>343</height>
+    <width>400</width>
+    <height>550</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
-    <width>450</width>
-    <height>450</height>
+    <width>400</width>
+    <height>550</height>
    </size>
   </property>
   <property name="windowTitle">
@@ -63,7 +63,7 @@
       <string>IP Address</string>
      </property>
     </widget>
-    <widget class="QLineEdit" name="portLE">
+    <widget class="QLineEdit" name="lePortTX">
      <property name="geometry">
       <rect>
        <x>10</x>
@@ -210,12 +210,12 @@
      <enum>Qt::Horizontal</enum>
     </property>
    </widget>
-   <widget class="QLineEdit" name="rxPortLE">
+   <widget class="QLineEdit" name="lePortRX">
     <property name="geometry">
      <rect>
       <x>190</x>
       <y>80</y>
-      <width>113</width>
+      <width>141</width>
       <height>22</height>
      </rect>
     </property>
@@ -242,6 +242,22 @@
      <string>(Received Packet)</string>
     </property>
    </widget>
+   <widget class="QTextEdit" name="teLog">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>290</y>
+      <width>361</width>
+      <height>211</height>
+     </rect>
+    </property>
+    <property name="lineWrapMode">
+     <enum>QTextEdit::NoWrap</enum>
+    </property>
+    <property name="readOnly">
+     <bool>true</bool>
+    </property>
+   </widget>
    <zorder>groupBox_2</zorder>
    <zorder>groupBox</zorder>
    <zorder>packetLE</zorder>
@@ -249,15 +265,16 @@
    <zorder>sendButton</zorder>
    <zorder>line</zorder>
    <zorder>line_2</zorder>
-   <zorder>rxPortLE</zorder>
+   <zorder>lePortRX</zorder>
    <zorder>rxPacketLabel</zorder>
+   <zorder>teLog</zorder>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>450</width>
+     <width>400</width>
      <height>22</height>
     </rect>
    </property>

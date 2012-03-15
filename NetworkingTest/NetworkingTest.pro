@@ -7,8 +7,6 @@
 QT       += core gui\
         network
 
-CONFIG += statics
-
 TARGET = NetworkingTest2
 TEMPLATE = app
 

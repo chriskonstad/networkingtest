@@ -9,16 +9,18 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     udpSocket = new QUdpSocket(this);   //create UDP Socket(tx)
     rxUdpSocket = new QUdpSocket(this); //create UDP Socket(rx)
-    //rxUdpSocket->bind(12345, QUdpSocket::ShareAddress);
-     rxUdpSocket->bind(12345); //found in book
-    connect(rxUdpSocket, SIGNAL(readyRead()), this, SLOT(processPendingDatagrams()));
-    findHostIP();
+    rxUdpSocket->bind(12345); //temporarily bind to port
+    findHostIP();   //find out the local host's IP
+
     //Set Tab order for UI
-    setTabOrder(ui->rxIPLE, ui->portLE);
-    setTabOrder(ui->portLE, ui->rxPortLE);
-    setTabOrder(ui->rxPortLE, ui->configButton);
+    setTabOrder(ui->rxIPLE, ui->lePortTX);
+    setTabOrder(ui->lePortTX, ui->lePortRX);
+    setTabOrder(ui->lePortRX, ui->configButton);
     setTabOrder(ui->configButton, ui->packetLE);
     setTabOrder(ui->packetLE, ui->sendButton);
+
+    //Connect signals and slots
+    connect(rxUdpSocket, SIGNAL(readyRead()), this, SLOT(processPendingDatagrams()));
 }
 
 MainWindow::~MainWindow()
@@ -36,21 +38,19 @@ void MainWindow::on_sendButton_clicked()
     if(userIP == true)
     {
         udpSocket->writeDatagram(myDatagram.data(), myDatagram.size(),
-                                 txIP, rxPort);
+                                 txIP, txPort);
     }
     else
     {
         udpSocket->writeDatagram(myDatagram.data(), myDatagram.size(),
-                                     QHostAddress::Broadcast, rxPort);
+                                     QHostAddress::Broadcast, txPort);
     }
-    //udpSocket->writeDatagram(myDatagram.data(), myDatagram.size(),
-                             //QHostAddress::Broadcast, 12345); //working sample code
 }
 
 void MainWindow::on_configButton_clicked()
 {
-    rxPort = ui->portLE->text().toInt();    //set port
-    listenPort = ui->rxPortLE->text().toInt();  //set port to listen on
+    txPort = ui->lePortTX->text().toInt();    //set port
+    listenPort = ui->lePortRX->text().toInt();  //set port to listen on
 
     rxUdpSocket->close();
 
@@ -87,18 +87,30 @@ void MainWindow::findHostIP()   //found this code online, modified it to only sh
 
 void MainWindow::processPendingDatagrams()
 {
-    //int senderPort;   //not needed
-    //QHostAddress senderAddress;   //not needed
     QByteArray rxDatagram;
     QString rxString;
+
     do
     {
         rxDatagram.resize(rxUdpSocket->pendingDatagramSize());
         rxUdpSocket->readDatagram(rxDatagram.data(), rxDatagram.size());
     }
     while(rxUdpSocket->hasPendingDatagrams());
+
     rxString = (tr("\"%1\"").arg(rxDatagram.data()));   //turn datagram into string
     rxString.remove(QChar('"'), Qt::CaseInsensitive);   //remove quotation marks
-    //ui->rxPacketLabel->setText(tr("\"%1\"").arg(rxDatagram.data()));
     ui->rxPacketLabel->setText(rxString);
+
+    //Add datagram to the log
+    QString timeString;
+    QTime *time = new QTime;
+    time->start();  //have the QTime get the current time
+    timeString = time->toString("hh:mm:ss.zzz");    //return the current time as a string
+    QString packetString;
+    packetString.append("(");
+    packetString.append(timeString);    //add the current time
+    packetString.append(")");
+    packetString.append('\t');  //add a tab
+    packetString.append(rxString);  //add the packet
+    ui->teLog->append(packetString);    //add the packet with timestamp to the packet log
 }
