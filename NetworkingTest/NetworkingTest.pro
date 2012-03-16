@@ -21,3 +21,7 @@ FORMS    += mainwindow.ui
 macx {
 ICON = networkingtest.icns
 }
+
+win32 {
+RC_FILE = networkingtest.rc
+}
