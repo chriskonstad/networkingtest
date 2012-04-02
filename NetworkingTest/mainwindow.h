@@ -14,13 +14,14 @@
   */
 
 #include <QMainWindow>
-#include "QtNetwork/qhostaddress.h"
-#include "QtNetwork/qudpsocket.h"
-#include "QtNetwork/qabstractsocket.h"
-#include "QNetworkInterface"
-#include "QHostAddress"
-#include "QtNetwork"
-#include "QTime"
+#include <QtNetwork/qhostaddress.h>
+#include <QtNetwork/qudpsocket.h>
+#include <QtNetwork/qabstractsocket.h>
+#include <QNetworkInterface>
+#include <QHostAddress>
+#include <QtNetwork>
+#include <QTime>
+#include <QTimer>
 
 namespace Ui {
     class MainWindow;
@@ -49,6 +50,7 @@ private:
     int listenPort;
     QHostAddress txIP;
     bool userIP;
+    QTimer *autoSender;
 };
 
 #endif // MAINWINDOW_H

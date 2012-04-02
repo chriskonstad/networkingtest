@@ -9,8 +9,10 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     udpSocket = new QUdpSocket(this);   //create UDP Socket(tx)
     rxUdpSocket = new QUdpSocket(this); //create UDP Socket(rx)
-    rxUdpSocket->bind(12345); //temporarily bind to port
+    rxUdpSocket->bind(12345, QUdpSocket::ShareAddress); //temporarily bind to port
     findHostIP();   //find out the local host's IP
+
+    autoSender = new QTimer(this);
 
     //Set Tab order for UI
     setTabOrder(ui->rxIPLE, ui->lePortTX);
@@ -21,6 +23,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
     //Connect signals and slots
     connect(rxUdpSocket, SIGNAL(readyRead()), this, SLOT(processPendingDatagrams()));
+    connect(autoSender, SIGNAL(timeout()), this, SLOT(on_sendButton_clicked()));    //connect the timer to the send button
+
 }
 
 MainWindow::~MainWindow()
@@ -52,10 +56,19 @@ void MainWindow::on_configButton_clicked()
     txPort = ui->lePortTX->text().toInt();    //set port
     listenPort = ui->lePortRX->text().toInt();  //set port to listen on
 
+    autoSender->setInterval(ui->sbTime->value()*1000.0);    //convert from seconds to milliseconds
+    if(ui->cbEnable->isChecked())
+    {
+        autoSender->start();
+    }
+    else
+    {
+        autoSender->stop();
+    }
+
     rxUdpSocket->close();
 
-    rxUdpSocket->bind(listenPort); //found in book
-
+    rxUdpSocket->bind(listenPort, QUdpSocket::ShareAddress); //found in book
 
     if(ui->rxIPLE->text() != NULL)  //if user added IP address
     {
