@@ -112,7 +112,6 @@ void MainWindow::processPendingDatagrams()
 
     rxString = (tr("\"%1\"").arg(rxDatagram.data()));   //turn datagram into string
     rxString.remove(QChar('"'), Qt::CaseInsensitive);   //remove quotation marks
-    ui->rxPacketLabel->setText(rxString);
 
     //Add datagram to the log
     QString timeString;
