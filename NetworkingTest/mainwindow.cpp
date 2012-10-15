@@ -1,6 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-
+#include "flickcharm.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -20,6 +20,8 @@ MainWindow::MainWindow(QWidget *parent) :
     setTabOrder(ui->lePortRX, ui->configButton);
     setTabOrder(ui->configButton, ui->packetLE);
     setTabOrder(ui->packetLE, ui->sendButton);
+
+    flickCharm.activateOn(ui->teLog);
 
     //Connect signals and slots
     connect(rxUdpSocket, SIGNAL(readyRead()), this, SLOT(processPendingDatagrams()));

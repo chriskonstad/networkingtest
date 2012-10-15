@@ -262,22 +262,6 @@
       </property>
      </widget>
     </item>
-    <item row="5" column="0" colspan="2">
-     <widget class="QTextEdit" name="teLog">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-      <property name="lineWrapMode">
-       <enum>QTextEdit::NoWrap</enum>
-      </property>
-      <property name="readOnly">
-       <bool>true</bool>
-      </property>
-     </widget>
-    </item>
     <item row="1" column="0" rowspan="2">
      <widget class="QGroupBox" name="groupBox_3">
       <property name="sizePolicy">
@@ -334,14 +318,10 @@
       </layout>
      </widget>
     </item>
+    <item row="5" column="0" colspan="2">
+     <widget class="QTextEdit" name="teLog"/>
+    </item>
    </layout>
-   <zorder>groupBox_2</zorder>
-   <zorder>groupBox</zorder>
-   <zorder>packetLE</zorder>
-   <zorder>configButton</zorder>
-   <zorder>sendButton</zorder>
-   <zorder>teLog</zorder>
-   <zorder>groupBox_3</zorder>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">

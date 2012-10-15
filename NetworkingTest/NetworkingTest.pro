@@ -12,9 +12,11 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        mainwindow.cpp
+        mainwindow.cpp \
+    flickcharm.cpp
 
-HEADERS  += mainwindow.h
+HEADERS  += mainwindow.h \
+    flickcharm.h
 
 FORMS    += mainwindow.ui
 

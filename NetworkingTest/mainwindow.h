@@ -22,6 +22,7 @@
 #include <QtNetwork>
 #include <QTime>
 #include <QTimer>
+#include "flickcharm.h"
 
 namespace Ui {
     class MainWindow;
@@ -51,6 +52,7 @@ private:
     QHostAddress txIP;
     bool userIP;
     QTimer *autoSender;
+    FlickCharm flickCharm;
 };
 
 #endif // MAINWINDOW_H
