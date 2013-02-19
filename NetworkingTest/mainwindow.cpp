@@ -31,6 +31,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
     autoSender = new QTimer(this);
 
+    ui->packetLE->setInputMethodHints(Qt::ImhNoPredictiveText); //fixes bug that keeps qlineedit from recording keystrokes
+
     //Set Tab order for UI
     setTabOrder(ui->rxIPLE, ui->lePortTX);
     setTabOrder(ui->lePortTX, ui->lePortRX);
@@ -38,7 +40,8 @@ MainWindow::MainWindow(QWidget *parent) :
     setTabOrder(ui->configButton, ui->packetLE);
     setTabOrder(ui->packetLE, ui->sendButton);
 
-    flickCharm.activateOn(ui->teLog);
+    logFlick.activateOn(ui->teLog);
+    ipListFlick.activateOn(ui->listWidget);
 
     //Connect signals and slots
     connect(rxUdpSocket, SIGNAL(readyRead()), this, SLOT(processPendingDatagrams()));
@@ -144,4 +147,12 @@ void MainWindow::processPendingDatagrams()
     packetString.append('\t');  //add a tab
     packetString.append(rxString);  //add the packet
     ui->teLog->append(packetString);    //add the packet with timestamp to the packet log
+}
+
+void MainWindow::on_cbEnable_toggled(bool checked)
+{
+    if(checked)
+        ui->cbEnable->setText("Disable");
+    else
+        ui->cbEnable->setText("Enable");
 }

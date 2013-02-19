@@ -43,6 +43,8 @@ private slots:
     void findHostIP();  //!< Find out the local host's IP
     void on_configButton_clicked(); //!< Configure the ports
     void processPendingDatagrams(); //!< Display recieved packets
+    void on_cbEnable_toggled(bool checked);
+
 private:
     Ui::MainWindow *ui;
     QUdpSocket *udpSocket;  //socket used for sending
@@ -52,7 +54,8 @@ private:
     QHostAddress txIP;
     bool userIP;
     QTimer *autoSender;
-    FlickCharm flickCharm;
+    FlickCharm logFlick;
+    FlickCharm ipListFlick;
 };
 
 #endif // MAINWINDOW_H
